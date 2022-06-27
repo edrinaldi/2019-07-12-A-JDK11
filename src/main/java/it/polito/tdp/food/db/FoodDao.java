@@ -109,4 +109,36 @@ public class FoodDao {
 		}
 
 	}
+
+	public List<Food> getVertici(int nPorzioni){
+		String sql = "" ;
+		try {
+			Connection conn = DBConnect.getConnection() ;
+
+			PreparedStatement st = conn.prepareStatement(sql) ;
+			st.setInt(1, nPorzioni);
+			
+			List<Food> list = new ArrayList<>() ;
+			
+			ResultSet res = st.executeQuery() ;
+			
+			while(res.next()) {
+				try {
+					list.add(new Food(res.getInt("food_code"),
+							res.getString("display_name")
+							));
+				} catch (Throwable t) {
+					t.printStackTrace();
+				}
+			}
+			
+			conn.close();
+			return list ;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null ;
+		}
+
+	}
 }
