@@ -1,0 +1,47 @@
+- creo una lista di liste di cibi i cui indici identificano le K stazioni	// cibiStazioni
+- trovo la lista dei cibi disponibili 	// trovaDisponibili
+- per ciascuna stazione
+	- if(ci sono ancora cibi disponibili)
+		- per ciascun cibo disponibile
+			- lo associo alla stazione	// è stato selezionato
+			- lo rimuovo dalla lista dei disponibili
+			- break
+- inizializzo la coda degli eventi
+- per ogni stazione
+	- if(ha un cibo assegnato)
+		- carico un evento (tempo di preparazione, TERMINA_PREPARAZIONE, stazione, cibo assegnato)
+		
+processEvent(Event e):
+- per ogni evento	
+- case INIZIA_PREPARAZIONE	// inizia la preparazione di un cibo in una stazione
+	- associo il cibo alla stazione
+- case TERMINA_PREPARAZIONE	// è terminata la preparazione di un cibo in una stazione
+	- aggiorno il tempo di simulazione
+	- incremento il num di cibi preparati
+	- cerco il cibo successivo	// cercaSuccessivo
+	- if(l'ho trovato)
+		- carico un evento (tempo prec, INIZIA_PREPARAZIONE, stazione, cibo assegnato)
+		- calcolo il tempo per prepararlo	// noto il cibo corrente e quello successivo...
+		- carico un evento (tempo prec + tempo di preparzione, TERMINA_PREPARAZIONE, stazione, cibo assegnato)
+		
+trovaDisponibili(Food corrente):
+- per ogni cibo adiacente a quello corrente	// FoodAdiacente
+	- inizializzo la ricerca	// trovato = false
+	- for(stazione)
+		- for(cibo associato alla stazione)
+			- if(c'è coincidenza tra i due cibi)
+				- aggiorno la ricerca	// trovato = true
+	- if(non è ancora stato preparato)	// trovato == false
+		- lo aggiungo alla lista dei cibi disponibili
+- ordino la lista dei disponibili	// peso dell'arco desc
+	
+cercaSuccessivo(Food corrente, Food successivo):
+- trovo la lista dei disponibili	// trovaDisponibili
+- if(ce ne sono)
+	- il successivo sarà il primo disponibile
+- else
+	- il successivo sarà null
+
+		
+
+
